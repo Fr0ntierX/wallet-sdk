@@ -4,10 +4,13 @@ import axios from "axios";
 
 export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
   private address = "";
-  private walletBackendUrl = "https://wallet-api.fr0ntierx.store";
-  private walletAPIKey = "d33359e2d0981d58f57c680dd896266dd64ab040e4a1105c519c2e2749fa47dc";
 
-  constructor(private oidcToken: string, readonly provider?: providers.Provider) {
+  constructor(
+    private walletBackendUrl: string,
+    private walletAPIKey: string,
+    private oidcToken: string,
+    readonly provider?: providers.Provider
+  ) {
     super();
   }
 
@@ -78,6 +81,6 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
   }
 
   connect(provider: providers.Provider): Signer {
-    return new Fr0ntierXWalletSigner(this.oidcToken, provider);
+    return new Fr0ntierXWalletSigner(this.walletBackendUrl, this.walletAPIKey, this.oidcToken, provider);
   }
 }
