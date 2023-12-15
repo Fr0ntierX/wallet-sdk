@@ -8,17 +8,17 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
   constructor(
     private walletBackendUrl: string,
     private walletAPIKey: string,
-    private oidcToken: string,
+    private idToken: string,
     readonly provider?: providers.Provider
   ) {
     super();
   }
 
   async getAddress(): Promise<string> {
-    if (!this.address && this.oidcToken) {
+    if (!this.address && this.idToken) {
       const { data } = await axios.post(this.walletBackendUrl, null, {
         headers: {
-          authorization: `Bearer ${this.oidcToken}`,
+          authorization: `Bearer ${this.idToken}`,
           "x-api-key": this.walletAPIKey,
         },
       });
@@ -33,7 +33,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
       { unsignedMessage: message },
       {
         headers: {
-          authorization: `Bearer ${this.oidcToken}`,
+          authorization: `Bearer ${this.idToken}`,
           "x-api-key": this.walletAPIKey,
         },
       }
@@ -52,7 +52,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
       { domain, types, value },
       {
         headers: {
-          authorization: `Bearer ${this.oidcToken}`,
+          authorization: `Bearer ${this.idToken}`,
           "x-api-key": this.walletAPIKey,
         },
       }
@@ -67,7 +67,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
       { unsignedTransaction: transaction },
       {
         headers: {
-          authorization: `Bearer ${this.oidcToken}`,
+          authorization: `Bearer ${this.idToken}`,
           "x-api-key": this.walletAPIKey,
         },
       }
@@ -76,11 +76,11 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
     return data.signedTransaction;
   }
 
-  updateOIDCToken(oidcToken: string) {
-    this.oidcToken = oidcToken;
+  updateidToken(idToken: string) {
+    this.idToken = idToken;
   }
 
   connect(provider: providers.Provider): Signer {
-    return new Fr0ntierXWalletSigner(this.walletBackendUrl, this.walletAPIKey, this.oidcToken, provider);
+    return new Fr0ntierXWalletSigner(this.walletBackendUrl, this.walletAPIKey, this.idToken, provider);
   }
 }
