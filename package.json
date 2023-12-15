@@ -1,6 +1,6 @@
 {
   "name": "@fr0ntierx/wallet-sdk",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Fr0ntierX/wallet-sdk.git"
   },
-  "author": "FR0NTIERX INC.",
+  "author": "Fr0ntierX Inc.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Fr0ntierX/wallet-sdk/issues"

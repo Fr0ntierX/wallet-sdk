@@ -40,3 +40,6 @@ yarn-error.log*
 /designTokensRepo
 
 sandbox.tsx
+
+# Dist folder
+dist
