@@ -1,16 +1,16 @@
 # Fr0ntierX Wallet SDK
 
-The `@fr0ntierx/wallet-sdk` provides an easy way to integrate the Fr0ntierX Wallet into your web applications. This SDK includes a custom signer that allows users to sign messages and transactions using their Fr0ntierX Wallet.
+The `@frontierx/wallet-sdk`` offers a straightforward method for integrating the FrontierX Wallet API into web applications that use [ethers.js](https://docs.ethers.org/v5/). This SDK includes a custom signer, enabling the signing of messages and transactions using the FrontierX Wallet.
 
 ## Installation
 
-You can install the `@fr0ntierx/wallet-sdk` using npm:
+To install the Wallet SDK use the following command for `npm`:
 
 ```bash
 npm install @fr0ntierx/wallet-sdk
 ```
 
-Or using yarn:
+or for `yarn`:
 
 ```bash
 yarn add @fr0ntierx/wallet-sdk
@@ -20,18 +20,30 @@ yarn add @fr0ntierx/wallet-sdk
 
 ### Initialization
 
-First, you need to initialize the `Fr0ntierXWalletSigner` with the OIDC token and an optional provider.
+Before you can sign messages and transactions, you need to initialize a `Fr0ntierXWalletSigner` object. You will need to following parameters:
+
+- Wallet API URL: the URL of the wallet instace you want to use
+- Wallet API Key: your wallet API key
+- ID token: a valid ID token created from a whitelisted OAuth client associated with the API key
+- (optional) Ethers provider: an ethers provider for interaction with the blockchain
 
 ```javascript
 import { Fr0ntierXWalletSigner } from "@fr0ntierx/wallet-sdk";
 
-const oidcToken = "YOUR_OIDC_TOKEN";
-const signer = new Fr0ntierXWalletSigner(oidcToken);
+const signer = new Fr0ntierXWalletSigner("https://wallet-api-dev.fr0ntierx.xyz", "demo", idToken);
+```
+
+### Updating the OIDC Token
+
+If the ID token of the user expires, you can update itL
+
+```javascript
+signer.updateOIDCToken(newIdToken);
 ```
 
 ### Getting Address
 
-Retrieve the address associated with the current OIDC token.
+Retrieve the address associated with the current ID token.
 
 ```javascript
 const address = await signer.getAddress();
@@ -74,15 +86,6 @@ const transaction = {
 
 const signedTransaction = await signer.signTransaction(transaction);
 console.log(signedTransaction);
-```
-
-### Updating the OIDC Token
-
-You can update the OIDC token if needed:
-
-```javascript
-const newOidcToken = "YOUR_NEW_OIDC_TOKEN";
-signer.updateOIDCToken(newOidcToken);
 ```
 
 ## Contributions
