@@ -1,5 +1,5 @@
 {
-  "name": "@fr0ntierx/wallet-sdk",
+  "name": "@fr0ntier-x/wallet-sdk",
   "version": "0.9.0",
   "description": "",
   "main": "dist/index.js",
