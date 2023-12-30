@@ -16,13 +16,13 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
 
   async getAddress(): Promise<string> {
     if (!this.address && this.idToken) {
-      const { data } = await axios.post(this.walletBackendUrl, null, {
+      const { data } = await axios.post(`${this.walletBackendUrl}/account`, null, {
         headers: {
           authorization: `Bearer ${this.idToken}`,
           "x-api-key": this.walletAPIKey,
         },
       });
-      this.address = data.success.address;
+      this.address = data.success.ethereumAddress;
     }
     return this.address;
   }
@@ -30,7 +30,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
   async signMessage(message: utils.Bytes | string): Promise<string> {
     const { data } = await axios.post(
       `${this.walletBackendUrl}/signMessage`,
-      { unsignedMessage: message },
+      { message },
       {
         headers: {
           authorization: `Bearer ${this.idToken}`,
@@ -39,7 +39,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
       }
     );
 
-    return data.signedMessage;
+    return data.signature;
   }
 
   async _signTypedData(
@@ -58,13 +58,13 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
       }
     );
 
-    return data.signedTypedData;
+    return data.signature;
   }
 
   async signTransaction(transaction: providers.TransactionRequest): Promise<string> {
     const { data } = await axios.post(
       `${this.walletBackendUrl}/signTransaction`,
-      { unsignedTransaction: transaction },
+      { transaction },
       {
         headers: {
           authorization: `Bearer ${this.idToken}`,
@@ -73,7 +73,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
       }
     );
 
-    return data.signedTransaction;
+    return data.signature;
   }
 
   updateidToken(idToken: string) {
