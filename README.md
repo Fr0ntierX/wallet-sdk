@@ -1,6 +1,6 @@
 # Fr0ntierX Wallet SDK
 
-The `@frontierx/wallet-sdk`` offers a straightforward method for integrating the FrontierX Wallet API into web applications that use [ethers.js](https://docs.ethers.org/v5/). This SDK includes a custom signer, enabling the signing of messages and transactions using the FrontierX Wallet.
+The `@frontierx/wallet-sdk` offers a straightforward method for integrating the FrontierX Wallet API into web applications that use [ethers.js](https://docs.ethers.org/v5/). This SDK includes a custom signer, enabling the signing of messages and transactions using the FrontierX Wallet.
 
 ## Installation
 
