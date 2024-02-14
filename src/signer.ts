@@ -22,7 +22,7 @@ export class Fr0ntierXWalletSigner extends Signer implements TypedDataSigner {
           "x-api-key": this.walletAPIKey,
         },
       });
-      this.address = data.success.ethereumAddress;
+      this.address = data.ethereumAddress;
     }
     return this.address;
   }
